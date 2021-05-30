@@ -1,2 +1,2 @@
 # commonjs_brower
-实现commonjs的库
+浏览器commonjs运行时
