@@ -9,7 +9,7 @@ import Module from './module'
 export const defineFun = function (moduleCallBack: Function) {
     const module = new Module(requireModule.currentModuleId);
     const exports = module.exports;
-    requireModule.cache[requireModule.currentModuleId] = module.exports;
+    requireModule.cache[requireModule.currentModuleId] = module;
     moduleCallBack(requireModule, exports, module);
 }
 
@@ -20,7 +20,7 @@ export const defineFun = function (moduleCallBack: Function) {
 export const defineValue = function (moduleValue: any) {
     const module = new Module(requireModule.currentModuleId);
     module.exports = moduleValue;
-    requireModule.cache[requireModule.currentModuleId] = module.exports;
+    requireModule.cache[requireModule.currentModuleId] = module;
 }
 
 /**
