@@ -4,12 +4,13 @@
 export default class Module{
     private _id: string;
     private _exports: object = {};
-    private _uri: string;
     private _dependencies:string[] = [];
 
     constructor(id) {
         this._id = id;
-        this._uri = id;
+    }
+    get uri () {
+        return this._id;
     }
     get exports () {
         return this._exports;

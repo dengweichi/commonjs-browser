@@ -18,7 +18,7 @@ const define = function (module:any) {
     }
 }
 
-// 把use挂载到define
+// 把主模块加载函数use挂载到define函数上
 define.use = use;
 
 export default define;
