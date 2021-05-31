@@ -1,4 +1,4 @@
 define(function (require, exports, module) {
-  const bar = require('./utils/utils');
-  debugger
+  const { add } = require('./utils/utils');
+  module.exports.result = add(1,1);
 })

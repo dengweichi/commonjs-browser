@@ -4,12 +4,14 @@ import Module from "./module";
  * @param moduleIdentify
  */
 const getAbsoluteURL = function (moduleIdentify:string):string {
+    // 如果模块省略了后缀名称，自动添加模块后拽
     if (!moduleIdentify.endsWith('.js')) {
         moduleIdentify+= '.js';
     }
 
     let baseURL = new URL(requireModule.currentModuleId);
     if (baseURL.pathname.includes('.')) {
+        // 获取文件的目录
         const index = baseURL.pathname.lastIndexOf('/');
         const pathname =baseURL.pathname.slice(index);
         baseURL = new URL(pathname, location.origin);
@@ -68,7 +70,7 @@ const async = function (moduleIdentify:string, callback: Function) {
     const loadError = () => {
         callback(null);
         clear();
-        // 移除脚本，情况模块缓存，移除夫模块的依赖
+        // 移除脚本，清空模块缓存，移除父模块的依赖
         document.removeChild(script);
         requireModule.cache[absoluteURL] = undefined;
         parentModule.removeDepend(absoluteURL);
@@ -82,7 +84,9 @@ const async = function (moduleIdentify:string, callback: Function) {
 }
 
 requireModule.async = async;
+// 以模块的绝对路径为key, 以模块的构建对象 module为value。作为缓存存放在cache对象里面，防止重复加载
 requireModule.cache = {};
+// 记录当前处理的模块的绝对路径 当主模块执行的时候。 currentModuleId  为主模块的绝对路径。
 requireModule.currentModuleId = '';
 
 export default requireModule;
