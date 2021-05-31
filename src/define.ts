@@ -1,22 +1,26 @@
-import { getAbsoluteURL,loadScript } from "./utils";
 
-export const cache = {};
+import requireModule  from "./require";
+import Module from './module'
 
-let currentModuleId: string = '';
 /**
  * @description 定义模块
- * @param module{Function}
+ * @param moduleCallBack{Function}
  */
-export const defineFun = function (module: Function) {
-    
+export const defineFun = function (moduleCallBack: Function) {
+    const module = new Module(requireModule.currentModuleId);
+    const exports = module.exports;
+    requireModule.cache[requireModule.currentModuleId] = module.exports;
+    moduleCallBack(requireModule, exports, module);
 }
 
 /**
  * @description 定义数据
- * @param module
+ * @param moduleValue
  */
-export const defineValue = function (module: any) {
-    
+export const defineValue = function (moduleValue: any) {
+    const module = new Module(requireModule.currentModuleId);
+    module.exports = moduleValue;
+    requireModule.cache[requireModule.currentModuleId] = module.exports;
 }
 
 /**
@@ -24,10 +28,6 @@ export const defineValue = function (module: any) {
  * @param moduleIdentify{string}
  */
 export const use = function (moduleIdentify:string) {
-    if (!moduleIdentify.endsWith('.js')) {
-        moduleIdentify+= '.js';
-    }
-    const absoluteURL = getAbsoluteURL(moduleIdentify);
-    currentModuleId = absoluteURL;
-    loadScript(absoluteURL);
+    requireModule.currentModuleId = location.origin;
+    requireModule(moduleIdentify);
 }

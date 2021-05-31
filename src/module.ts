@@ -1,7 +1,7 @@
 
-export class Module{
+export default class Module{
     private _id: string;
-    private _exports: object;
+    private _exports: object = {};
     private _uri: string;
     constructor(id) {
         this._id = id;

@@ -3,7 +3,7 @@ const baseConfig = require('./webpack.base.config')
 const path = require('path')
 
 module.exports = merge(baseConfig, {
-  mode: 'development',
+  mode: 'production',
   entry: {
     app: path.resolve(__dirname, '../src/main.ts')
   },
