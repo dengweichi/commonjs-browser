@@ -37,10 +37,12 @@ const requireModule = function (moduleIdentify:string):object {
     http.open("GET", absoluteURL, false);
     http.send();
     const response = http.response;
+    debugger
     const script = document.createElement('script');
     script.textContent = response;
     document.querySelector('head').appendChild(script);
-    return requireModule.cache[absoluteURL] ?  requireModule.cache[absoluteURL].exports : null;
+    // @ts-ignore
+    return requireModule.cache[absoluteURL] ? requireModule.cache[absoluteURL].exports : null;
 }
 
 /**
@@ -64,6 +66,7 @@ const async = function (moduleIdentify:string, callback: Function) {
     script.src = absoluteURL;
     script.async = true;
     const loadSuccess = () => {
+        // @ts-ignore
         callback( requireModule.cache[absoluteURL] ?  requireModule.cache[absoluteURL].exports : null);
         clear();
     }
